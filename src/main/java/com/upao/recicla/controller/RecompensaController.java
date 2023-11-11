@@ -33,4 +33,12 @@ public class RecompensaController {
         return ResponseEntity.created(uri).body(new DatosDetallesRecompensa(recompensa));
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteRecompensaById(@PathVariable Long id) {
+        var recompensa = recompensaService.getReferenceById(id);
+        recompensaService.deleteRecompensaById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

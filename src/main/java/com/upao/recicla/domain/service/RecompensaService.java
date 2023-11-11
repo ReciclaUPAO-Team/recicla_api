@@ -29,4 +29,7 @@ public class RecompensaService {
         return recompensaRepository.save(recompensa);
     }
 
+    public void deleteRecompensaById(Long id) {
+        recompensaRepository.deleteById(id);
+    }
 }

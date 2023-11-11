@@ -45,4 +45,24 @@ class RecompensaServiceTest {
         // Assert que el repositorio haya sido llamado para guardar la recompensa
         Mockito.verify(recompensaRepositoryMock).save(recompensa);
     }
+
+
+    @Test
+    void deleteRecompensaById() {
+        // Creamos un mock de la clase RecompensaRepository
+        RecompensaRepository recompensaRepositoryMock = Mockito.mock(RecompensaRepository.class);
+
+        // Creamos una instancia del servicio de recompensas
+        RecompensaService recompensaService = new RecompensaService(recompensaRepositoryMock);
+
+        // Simulamos la respuesta del repositorio
+        Long recompensaId = 1L;
+        Mockito.doNothing().when(recompensaRepositoryMock).deleteById(recompensaId);
+
+        // Eliminamos la recompensa por su ID
+        recompensaService.deleteRecompensaById(recompensaId);
+
+        // Assert que el repositorio haya sido llamado para eliminar la recompensa por su ID
+        Mockito.verify(recompensaRepositoryMock).deleteById(recompensaId);
+    }
 }
