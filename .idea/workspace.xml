@@ -5,52 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="721596d5-87a6-48ef-bfd9-019327b45caa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/ReciclaApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/controller/ActividadController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/controller/ResiduoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/controller/UsuarioController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/actividadDto/DatosActualizarActividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/actividadDto/DatosDetallesActividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/actividadDto/DatosListadoActividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/actividadDto/DatosRegistroActividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/actividadDto/DatosRespuestaActividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/residuoDto/DatosActualizarResiduo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/residuoDto/DatosDetallesResiduo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/residuoDto/DatosListadoResiduo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/residuoDto/DatosRegistroResiduo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/residuoDto/DatosRespuestaResiduo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/usuarioDto/DatosActualizarUsuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/usuarioDto/DatosDetallesUsuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/usuarioDto/DatosListadoUsuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/usuarioDto/DatosRegistroUsuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/dto/usuarioDto/DatosRespuestaUsuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/entity/Actividad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/entity/Residuo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/entity/Rol.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/entity/Usuario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/repository/ActividadRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/repository/ResiduoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/repository/UsuarioRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/service/ActividadService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/service/ResiduoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/service/UsuarioService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/exception/TratadorDeErrores.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/exception/ValidacionDeIntegridad.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/ApplicationConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/JwtAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/JwtService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/LoginRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/security/TokenResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/infra/springdoc/SpringDocConfigurations.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/upao/recicla/ReciclaApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/upao/recicla/domain/service/ActividadServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/controller/ComunidadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/upao/recicla/controller/ComunidadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/service/ComunidadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/upao/recicla/domain/service/ComunidadService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,9 +57,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging feature/Registro-de-Actividad-de-Reciclaje",
+    "git-widget-placeholder": "feature/Creacion-de-comunidad",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/jhone/Downloads/registrarActividad/recicla_api/src/main/resources",
+    "last_opened_file_path": "C:/Users/jhone/Downloads/registrarActividad/recicla_api",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -114,10 +70,10 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jhone\Downloads\registrarActividad\recicla_api" />
       <recent name="C:\Users\jhone\Downloads\registrarActividad\recicla_api\src\main\resources" />
       <recent name="C:\Users\jhone\Downloads\registrarActividad\recicla_api\src\main\java\com\upao\recicla\domain\dto" />
       <recent name="C:\Users\jhone\Downloads\registrarActividad\recicla_api\src\main\java\com\upao\recicla\domain\dto\actividadDto" />
-      <recent name="C:\Users\jhone\Downloads\registrarActividad\recicla_api" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.upao.recicla.controller" />
@@ -159,7 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1699693864241</updated>
       <workItem from="1699693866104" duration="2031000" />
-      <workItem from="1699711037595" duration="625000" />
+      <workItem from="1699711037595" duration="1032000" />
     </task>
     <servers />
   </component>

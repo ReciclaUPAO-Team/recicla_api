@@ -21,4 +21,12 @@ public class ComunidadService {
         comunidadRepository.save(comunidad);
     }
 
+    public Comunidad getReferenceById(Long id) {
+        return comunidadRepository.getReferenceById(id);
+    }
+
+    public void deleteComunidadById(Long id) {
+        comunidadRepository.deleteById(id);
+    }
+
 }

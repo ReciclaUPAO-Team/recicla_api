@@ -36,5 +36,12 @@ public class ComunidadController {
         return ResponseEntity.created(uri).body(new DatosDetallesComunidad(comunidad));
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteComunidadById(@PathVariable Long id) {
+        var comunidad = comunidadService.getReferenceById(id);
+        comunidadService.deleteComunidadById(id);
 
+        return ResponseEntity.noContent().build();
+    }
 }
