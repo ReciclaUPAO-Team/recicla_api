@@ -27,8 +27,8 @@ public class Recompensa {
     private LocalDateTime fechaInicio;
     @Column(name = "fecha_cierre")
     private LocalDateTime fechaCierre;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario usuario;
 
     public Recompensa(DatosRegistroRecompensa datos){
         this.titulo = datos.titulo();

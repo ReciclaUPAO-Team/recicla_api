@@ -18,7 +18,7 @@ import java.util.List;
 
 class RecompensaServiceTest {
 
-  
+
     @Test
     void getAllRecompensas() {
         // Creamos un mock de la clase RecompensaRepository
