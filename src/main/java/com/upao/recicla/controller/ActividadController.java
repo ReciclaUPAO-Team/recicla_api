@@ -1,64 +1,70 @@
 package com.upao.recicla.controller;
 
-import com.upao.recicla.domain.entity.actividad.Actividad;
-import com.upao.recicla.domain.entity.usuario.Usuario;
+import com.upao.recicla.domain.dto.actividadDto.DatosActualizarActividad;
+import com.upao.recicla.domain.dto.actividadDto.DatosDetallesActividad;
+import com.upao.recicla.domain.dto.actividadDto.DatosListadoActividad;
+import com.upao.recicla.domain.dto.actividadDto.DatosRespuestaActividad;
+import com.upao.recicla.domain.entity.Actividad;
 import com.upao.recicla.domain.service.ActividadService;
-import org.springframework.http.HttpStatus;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/v1/actividades")
+@RequestMapping("/actividad")
+@RequiredArgsConstructor
 public class ActividadController {
+
+    @Autowired
     private final ActividadService actividadService;
 
-    public ActividadController(ActividadService actividadService) {
-        this.actividadService = actividadService;
-    }
     @GetMapping
-    public List<Actividad> getAllActividades() {
-        return actividadService.getAllActividades();
+    public ResponseEntity<Page<DatosListadoActividad>> getAllActividades(@PageableDefault(size = 10) Pageable pageable) {
+        return ResponseEntity.ok(actividadService.getAllActividades(pageable).map(DatosListadoActividad::new));
     }
-    @GetMapping("/{id}")
-    public Actividad getActividadById(@PathVariable Long id) {
-        return actividadService.getActividadById(id)
-                .orElse(new Actividad());
-    }
-    @PostMapping
-    public void addActividad(@RequestBody Actividad actividad) {
-        actividadService.addActividad(actividad);
-    }
-    @PutMapping("/{id}")
-    public void updateActividad(@RequestBody Actividad actividad, @PathVariable Long id) {
-        actividadService.updateActividad(actividad, id);
-    }
-    @DeleteMapping("/{id}")
-    public void deleteActividadById(@PathVariable Long id) {
-        actividadService.deleteActividadById(id);
+
+    @GetMapping("/historial/{id}")
+    public ResponseEntity<DatosRespuestaActividad> getHistorialActividades(@PathVariable Long id) {
+        Actividad actividad = actividadService.getReferenceById(id);
+        var datosActividad = new DatosRespuestaActividad(actividad.getId(), actividad.getNombre(), actividad.getCantidad(),
+                actividad.getImagen(), actividad.getFecha(), actividad.getResiduo().getId(), actividad.getResiduo().getNombre(),
+                actividad.getResiduo().getDescripcion(), actividad.getResiduo().getTipo(), actividad.getResiduo().getPuntos(),
+                actividad.getUsuario().getId(), actividad.getUsuario().getNombre(), actividad.getUsuario().getPuntos());
+        return ResponseEntity.ok(datosActividad);
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<String> registrarActividad(@RequestBody Actividad actividad) {
-        if (actividad.getResiduo() == null ||
-                actividad.getCantidadReciclada() <= 0 ||
-                actividad.getUsuario() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Todos los campos son obligatorios y deben ser válidos.");
-        }
-        int puntosGanados = actividad.getCantidadReciclada().intValue();
-
-        Usuario usuario = actividad.getUsuario();
-
-        if (usuario.getPuntaje() == null) {
-            usuario.setPuntaje(0);
-        }
-        usuario.setPuntaje(usuario.getPuntaje() + puntosGanados);
-
+    @Transactional
+    public ResponseEntity<Long> addActividad(@RequestBody Actividad actividad) {
         actividadService.addActividad(actividad);
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
+        builder.path("/{id}").buildAndExpand(actividad.getId());
+        return ResponseEntity.created(builder.build().toUri()).body(actividad.getId());
+    }
 
-        return ResponseEntity.ok("Actividad de reciclaje registrada. Puntos ganados: " + puntosGanados);
+    @PutMapping
+    @Transactional
+    public ResponseEntity updateActividad(@RequestBody @Valid DatosActualizarActividad datos) {
+        var actividad = actividadService.getReferenceById(datos.id());
+        actividad.actualizarActividad(datos);
+
+        return ResponseEntity.ok(new DatosDetallesActividad(actividad));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteActividadById(@PathVariable Long id) {
+        var actividad = actividadService.getReferenceById(id);
+        actividadService.deleteActividadById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
+

@@ -1,42 +1,67 @@
 package com.upao.recicla.controller;
 
-import com.upao.recicla.domain.entity.actividad.Actividad;
-import com.upao.recicla.domain.entity.usuario.Usuario;
+import com.upao.recicla.domain.dto.usuarioDto.*;
+import com.upao.recicla.domain.entity.Usuario;
 import com.upao.recicla.domain.service.UsuarioService;
+import com.upao.recicla.infra.security.LoginRequest;
+import com.upao.recicla.infra.security.TokenResponse;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/usuario")
+@RequiredArgsConstructor
 public class UsuarioController {
+
+    @Autowired
     private final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
     @GetMapping
-    public List<Usuario> getAllUsuarios() {
-        return usuarioService.getAllUsuarios();
-    }
-    @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable Long id) {
-        return usuarioService.getUsuarioById(id)
-                .orElse(new Usuario());
-    }
-    @PostMapping
-    public void addUsuario(@RequestBody Usuario usuario) {
-        usuarioService.addUsuario(usuario);
-    }
-    @PutMapping("/{id}")
-    public void updateUsuario(@RequestBody Usuario usuario, @PathVariable Long id) {
-        usuarioService.updateUsuario(usuario, id);
-    }
-    @DeleteMapping("/{id}")
-    public void deleteUsuarioById(@PathVariable Long id) {
-        usuarioService.deleteUsuarioById(id);
+    public ResponseEntity<Page<DatosListadoUsuario>> getAllUsuarios(@PageableDefault(size = 10) Pageable pageable) {
+        return ResponseEntity.ok(usuarioService.getAllUsuarios(pageable).map(DatosListadoUsuario::new));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosRespuestaUsuario> getUsuarioById(@PathVariable Long id) {
+        Usuario usuario = usuarioService.getReferenceById(id);
+        var datosUsuario = new DatosRespuestaUsuario(usuario.getId(), usuario.getNombre(), usuario.getEdad(),
+                usuario.getTelefono(), usuario.getCorreo(), usuario.getPuntos(), usuario.getDni(), usuario.getRol());
+        return ResponseEntity.ok(datosUsuario);
+    }
+
+    @PostMapping("/login")
+    @Transactional
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(usuarioService.login(request));
+    }
+
+    @PostMapping("/registrar")
+    @Transactional
+    public ResponseEntity<TokenResponse> addUsuario(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.addUsuario(usuario));
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity updateUsuario(@RequestBody @Valid DatosActualizarUsuario datos) {
+        var usuario = usuarioService.getReferenceById(datos.id());
+        usuario.actualizarUsuario(datos);
+
+        return ResponseEntity.ok(new DatosDetallesUsuario(usuario));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteUsuarioById(@PathVariable Long id) {
+        var usuario = usuarioService.getReferenceById(id);
+        usuarioService.deleteUsuarioById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
