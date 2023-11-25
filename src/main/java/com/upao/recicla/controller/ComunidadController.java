@@ -22,6 +22,22 @@ public class ComunidadController {
     @Autowired
     private final ComunidadService comunidadService;
 
+    @PostMapping("/nuevo")
+    @Transactional
+    public ResponseEntity addComunidad(@RequestBody @Valid DatosRegistroComunidad datos,
+                                                    UriComponentsBuilder uriBuilder) {
+        var comunidad = new Comunidad(datos);
+        comunidadService.addComunidad(comunidad);
+
+        var uri = uriBuilder.path("/comunidad/{id}").buildAndExpand(comunidad.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DatosDetallesComunidad(comunidad));
+    }
+
+    @GetMapping("/mostrar")
+    public ResponseEntity<Page<DatosListadoComunidad>> getAllComunidades(@PageableDefault (size = 10) Pageable pageable) {
+
+        return ResponseEntity.ok(comunidadService.getAllComunidades(pageable).map(DatosListadoComunidad::new));
+    }
 
     @PutMapping
     @Transactional
@@ -32,4 +48,12 @@ public class ComunidadController {
         return ResponseEntity.ok(new DatosDetallesComunidad(comunidad));
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deleteComunidadById(@PathVariable Long id) {
+        var comunidad = comunidadService.getReferenceById(id);
+        comunidadService.deleteComunidadById(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

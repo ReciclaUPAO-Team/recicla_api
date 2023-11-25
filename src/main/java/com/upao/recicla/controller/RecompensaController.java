@@ -22,6 +22,16 @@ public class RecompensaController {
     @Autowired
     private final RecompensaService recompensaService;
 
+    @PostMapping("/crear")
+    @Transactional
+    public ResponseEntity addRecompensas(@RequestBody @Validated DatosRegistroRecompensa datos,
+                                                        UriComponentsBuilder uriBuilder) {
+        var recompensa = new Recompensa(datos);
+        recompensaService.addRecompensa(recompensa);
+
+        var uri = uriBuilder.path("/recompensa/{id}").buildAndExpand(recompensa.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DatosDetallesRecompensa(recompensa));
+    }
 
     @GetMapping("/catalogo")
     public ResponseEntity<Page<DatosListadoRecompensa>> listarRecompensas(@PageableDefault(size = 10) Pageable pageable) {
@@ -45,6 +55,5 @@ public class RecompensaController {
 
         return ResponseEntity.ok(new DatosDetallesRecompensa(recompensa));
     }
-
 
 }

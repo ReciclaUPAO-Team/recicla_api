@@ -13,6 +13,21 @@ public class ComunidadService {
     @Autowired
     private final ComunidadRepository comunidadRepository;
 
+    public ComunidadService(ComunidadRepository comunidadRepository) {
+        this.comunidadRepository = comunidadRepository;
+    }
+
+    public void addComunidad(Comunidad comunidad) {
+        comunidadRepository.save(comunidad);
+    }
+
+    public Page<Comunidad> getAllComunidades(Pageable pageable) {
+        return comunidadRepository.findAll(pageable);
+    }
+
+    public Comunidad getReferenceById(Long id) {
+        return comunidadRepository.getReferenceById(id);
+    }
 
     public void updateComunidad(Comunidad comunidad, Long id) {
         Comunidad comunidadExists = comunidadRepository.findById(id)
@@ -24,5 +39,8 @@ public class ComunidadService {
         comunidadRepository.save(comunidadExists);
     }
 
+    public void deleteComunidadById(Long id) {
+        comunidadRepository.deleteById(id);
+    }
 
 }

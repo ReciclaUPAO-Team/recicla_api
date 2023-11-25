@@ -19,7 +19,15 @@ public class RecompensaService {
     public RecompensaService(RecompensaRepository recompensaRepository) {
         this.recompensaRepository = recompensaRepository;
     }
+    public Recompensa addRecompensa(Recompensa recompensa) {
+        if (recompensa.getValor()<=0){
+            throw new IllegalArgumentException("El valor de la recompensa debe ser mayor a 0");
+        }
+        recompensa.setFechaInicio(LocalDateTime.now());
+        recompensa.setFechaCierre(recompensa.getFechaInicio().plusWeeks(4));
 
+        return recompensaRepository.save(recompensa);
+    }
     public Page<Recompensa> getAllRecompensas(Pageable pageable) {
         return recompensaRepository.findAll(pageable);
     }
@@ -27,5 +35,7 @@ public class RecompensaService {
         return recompensaRepository.getReferenceById(id);
     }
 
-
+    public void deleteRecompensaById(Long id) {
+        recompensaRepository.deleteById(id);
+    }
 }
